@@ -1,4 +1,4 @@
-package org.fastrackit.onlineshopapi.transfer;
+package org.fastrackit.onlineshopapi.transfer.product;
 
 public class UpdateProductRequest {
 

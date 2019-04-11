@@ -3,18 +3,20 @@ package org.fastrackit.onlineshopapi;
 import org.fastrackit.onlineshopapi.domain.Product;
 import org.fastrackit.onlineshopapi.exception.ResourceNotFoundException;
 import org.fastrackit.onlineshopapi.service.ProductService;
-import org.fastrackit.onlineshopapi.transfer.CreateProductRequest;
-import org.fastrackit.onlineshopapi.transfer.UpdateProductRequest;
+import org.fastrackit.onlineshopapi.transfer.product.CreateProductRequest;
+import org.fastrackit.onlineshopapi.transfer.product.GetProductsRequest;
+import org.fastrackit.onlineshopapi.transfer.product.UpdateProductRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 @RunWith(SpringRunner.class)
@@ -95,6 +97,25 @@ public class ProductServiceIntegrationTests {
         productService.deleteProduct(createdProduct.getId());
 
         productService.getProduct(createdProduct.getId());
+
+
+    }
+    @Test
+    public void testGetProducts_whenAllCriteriaProvidedAndMatching_thenReturnFilteredResults(){
+        Product createdProduct = createProduct();
+
+        GetProductsRequest request = new GetProductsRequest();
+        request.setPartialName("top");
+        request.setMinimumPrice(3.5);
+        request.setMaximumPrice(10.1);
+        request.setMinimumQuantity(1);
+
+        Page<Product> products =
+                productService.getProducts(request, PageRequest.of(0, 10));
+
+
+        assertThat(products.getTotalElements(), greaterThanOrEqualTo(1L));
+
 
 
     }
