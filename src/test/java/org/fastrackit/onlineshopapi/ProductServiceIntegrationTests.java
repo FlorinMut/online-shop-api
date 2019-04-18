@@ -110,12 +110,15 @@ public class ProductServiceIntegrationTests {
         request.setMaximumPrice(10.1);
         request.setMinimumQuantity(1);
 
+
+        //acesta e un test facut in graba, assert-ul este minim, poate fi completat
         Page<Product> products =
                 productService.getProducts(request, PageRequest.of(0, 10));
 
 
         assertThat(products.getTotalElements(), greaterThanOrEqualTo(1L));
 
+        //todo: for each product from the response assert that all criteria are matched
 
 
     }

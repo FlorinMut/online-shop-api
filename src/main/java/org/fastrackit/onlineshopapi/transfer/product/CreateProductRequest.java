@@ -1,8 +1,12 @@
 package org.fastrackit.onlineshopapi.transfer.product;
 
+import javax.validation.constraints.NotBlank;
+
 public class CreateProductRequest {
 
+    @NotBlank
     private String name;
+    @NotBlank
     private String sku;
     private double price;
     private int quantity;
