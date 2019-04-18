@@ -27,8 +27,8 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
 
     //same result as the method above
-//    @Query("SELECT id, name FROM Product product WHERE name LIKE '%?2'")
-//    Page<Product> findByPartialName(String partialName, Pageable pageable);
+    @Query("SELECT id, name FROM Product product WHERE name LIKE '%?2'")
+    Page<Product> findByPartialName(String partialName, Pageable pageable);
 
 
 }
